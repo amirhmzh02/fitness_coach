@@ -1,0 +1,22 @@
+# Virtual environment
+venv/
+
+# Python cache files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Local files
+temp_audio.wav
+
+# IDE files
+.vscode/
+.idea/
+
+# Large files
+*.dll
+*.lib
+*.pth
+*.bin
+*.so
