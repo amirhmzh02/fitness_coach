@@ -1,16 +1,22 @@
+import os
 from flask import Flask, request, jsonify
 import whisper
 from transformers import pipeline
-import sounddevice as sd
+
 import scipy.io.wavfile as wav
 import numpy as np
-import os
 import ctypes
-
+try:
+    import sounddevice as sd
+except OSError as e:
+    print("PortAudio library not found. Audio recording will not work.")
+    sd = None
+    
 # Manually specify the path to libc (required for Whisper on Windows)
 if os.name == "nt":  # Check if the OS is Windows
     libc_path = "msvcrt.dll"  # This is the standard libc library on Windows
     ctypes.CDLL(libc_path)
+
 app = Flask(__name__)
 
 # Load Whisper model
@@ -38,4 +44,5 @@ def respond():
     return jsonify({"response": response})
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000)
+    port = int(os.environ.get("PORT", 5000))  # Use Render's PORT or default to 5000
+    app.run(host="0.0.0.0", port=port)
