@@ -1,6 +1,5 @@
 services:
   - type: web
     name: fitness-coach-backend
-    runtime: python
-    buildCommand: chmod +x build.sh && ./build.sh
-    startCommand: python app.py
+    runtime: docker
+    dockerfilePath: Dockerfile
